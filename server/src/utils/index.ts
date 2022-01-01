@@ -1,1 +1,8 @@
-export { getBalanceSheet, getCashFlow } from './getStockCoreData'
+export {
+  getBalanceSheet,
+  getCashFlow,
+  getCompany,
+  getDividends,
+  getFinancials,
+  getStockCoreData,
+} from './getStockCoreData'

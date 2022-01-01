@@ -1,1 +1,1 @@
-export { StockResolver } from './stock.resolver'
+export { StockResolver } from './stockCoreData.resolver'

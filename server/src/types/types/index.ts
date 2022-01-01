@@ -1,2 +1,5 @@
 export { BalanceSheet } from './Balancesheet'
 export { CashFlow } from './CashFlow'
+export { Company } from './Company'
+export { Dividends } from './Dividends'
+export { Financials } from './Financials'
