@@ -6,6 +6,7 @@ import {
   Company,
   Dividends,
   Financials,
+  StockPrice,
 } from '../types/types'
 import { ArgsType, Field, Int } from 'type-graphql'
 import { StockCoreDataParamsArgs } from '../types/args'
@@ -56,6 +57,18 @@ export const getFinancials = async (
     `stock/${symbol}/financials?period=${period}`
   )
   return data.financials
+}
+
+export const getStockPrices = async (
+  symbol: string,
+  range: string,
+  chartInterval: number
+): Promise<number[]> => {
+  const { data } = await axios.get<StockPrice[]>(
+    `stock/${symbol}/chart/${range}?chartInterval=${chartInterval}&chartCloseOnly=true`
+  )
+
+  return data.map((data) => data.close)
 }
 
 export const getStockCoreData = async (

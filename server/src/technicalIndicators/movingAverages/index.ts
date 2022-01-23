@@ -1,0 +1,1 @@
+export { SimpleMovingAverage } from './simpleMovingAverage'

@@ -1,1 +1,2 @@
-export { StockResolver } from './stockCoreData.resolver'
+export { StockCoreDataResolver } from './stockCoreData.resolver'
+export { StockMAResolver } from './stockMA.resolver'

@@ -1,9 +1,11 @@
+import { SimpleMovingAverage } from './technicalIndicators/movingAverages/simpleMovingAverage'
 import { ApolloServer } from 'apollo-server-express'
 import cors from 'cors'
 import 'dotenv-safe/config'
 import express from 'express'
 import 'reflect-metadata'
 import { createSchema } from './utils/createSchema'
+import { LinkedList } from './technicalIndicators/utils/LinkedList'
 
 const main = async () => {
   const schema = await createSchema()

@@ -4,7 +4,7 @@ import { StockCoreDataParamsArgs } from '../../types/args'
 import { getStockCoreData } from './../../utils/getStockCoreData'
 
 @Resolver()
-export class StockResolver {
+export class StockCoreDataResolver {
   @Query(() => StockData)
   async stockCoreData(
     @Args()

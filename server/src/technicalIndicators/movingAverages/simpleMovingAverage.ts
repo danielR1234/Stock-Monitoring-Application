@@ -31,7 +31,7 @@ export class SimpleMovingAverage extends Indicator {
     // The first head in the List must be 0
     List.pushLastNode(0)
     //make calucaltion with all pricess
-    while (current < this.prices.length - 1) {
+    while (current < this.prices.length) {
       if (current < this.period - 1) {
         sum = sum + this.prices[current]
         // push next header in the List
