@@ -11,11 +11,15 @@ export class SimpleMovingAverage extends Indicator {
   period: number
   prices: number[]
   result: number[]
-  generator: number[]
-  constructor(input: MovingAverageInput) {
+  numberOfSMAsCaluclated: number
+  constructor(
+    input: MovingAverageInput,
+    numberOfSMAsCaluclated: number = Infinity
+  ) {
     super(input)
     this.period = input.period
     this.prices = input.values
+    this.numberOfSMAsCaluclated = numberOfSMAsCaluclated
     this.result = []
   }
 
@@ -28,15 +32,19 @@ export class SimpleMovingAverage extends Indicator {
     let sum = 0
     let current = 0
     let average
+    let n = 0
     // The first head in the List must be 0
     List.pushLastNode(0)
     //make calucaltion with all pricess
-    while (current < this.prices.length) {
+    while (
+      ++current < this.prices.length &&
+      // if you just need the first SMA
+      this.numberOfSMAsCaluclated + this.period - 2 > n++
+    ) {
       if (current < this.period - 1) {
         sum = sum + this.prices[current]
         // push next header in the List
         List.pushLastNode(this.prices[current])
-        current++
       } else {
         // remove first Header in the list (first header is 0)
         // which at the same time is the value which is no longer needed to calculate the total
@@ -45,7 +53,6 @@ export class SimpleMovingAverage extends Indicator {
         List.pushLastNode(this.prices[current])
         average = sum / this.period
         this.result.push(average)
-        current++
       }
     }
     return this.result

@@ -13,7 +13,9 @@ export class StockMAResolver {
     @Arg('period', { defaultValue: 10 }) period: number
   ): Promise<StockMA> {
     const closePrices = await getStockPrices(symbol, range, chartInterval)
+
     const SMA = new SimpleMovingAverage({ period: period, values: closePrices })
+
     return {
       simpleMovingAverage: SMA.generateSimpleMovingAverage(),
     }
