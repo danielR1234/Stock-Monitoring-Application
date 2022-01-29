@@ -1,3 +1,4 @@
+import { LinkedList } from './../utils/LinkedList'
 import { MovingAverageInput, SimpleMovingAverage } from './simpleMovingAverage'
 import { Indicator } from './../indicator/indicator'
 
@@ -5,32 +6,45 @@ export class ExponentialMovingAverage extends Indicator {
   period: number
   prices: number[]
   result: number[]
-
   constructor(input: MovingAverageInput) {
     super(input)
     this.period = input.period
     this.prices = input.values
     this.result = []
   }
-
   generateExponentialAverage = (): number[] => {
     // less pricess than period return []
     if (this.prices.length < this.period) {
       return []
     }
-    let current = 0
-    let previousEmaIndex = 0
-    const exponentialMovingAverages = []
-    const length = this.prices.length
-    const multiplier = 2 / (this.period + 1)
-    const SMA = new SimpleMovingAverage({
-      period: 1,
-      values: this.prices,
-    })
+    const SMA = new SimpleMovingAverage(
+      {
+        period: this.period,
+        values: this.prices,
+      },
+      1
+    )
+    // generates first SMA of given prices
     const sma = SMA.generateSimpleMovingAverage()
+    let List = new LinkedList()
+    // pushes the SMA as first head in to the Linked List
+    List.pushLastNode(sma[0])
+    let current = 0
+    const exponentialMovingAverages = []
     exponentialMovingAverages.push(sma[0])
-    while (current < this.prices.length) {}
-    return [1]
+    const multiplier = 2 / (this.period + 1)
+    // start the calculation from the first day after the period e.g period is 5 --> start calculation on the 6 day
+    while (this.period + current < this.prices.length) {
+      const value = this.prices[this.period + current]
+      // previosEMA = header in the LinkedList
+      const previousEma = List.shift()
+      const currentEma = (value - previousEma) * multiplier + previousEma
+      exponentialMovingAverages.push(currentEma)
+      List.pushLastNode(currentEma)
+      current++
+    }
+
+    return exponentialMovingAverages
   }
 }
 
