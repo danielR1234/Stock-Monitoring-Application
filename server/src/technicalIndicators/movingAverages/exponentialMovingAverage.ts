@@ -1,6 +1,6 @@
-import { LinkedList } from './../utils/LinkedList'
-import { MovingAverageInput, SimpleMovingAverage } from './simpleMovingAverage'
-import { Indicator } from './../indicator/indicator'
+import { LinkedList } from '../utils/LinkedList'
+import { MovingAverageInput, SimpleMovingAverage } from './SimpleMovingAverage'
+import { Indicator } from '../indicator/indicator'
 
 export class ExponentialMovingAverage extends Indicator {
   period: number

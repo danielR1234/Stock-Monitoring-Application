@@ -1,4 +1,4 @@
-import { SimpleMovingAverage } from './technicalIndicators/movingAverages/simpleMovingAverage'
+import { SimpleMovingAverage } from './technicalIndicators/movingAverages/SimpleMovingAverage'
 import { ApolloServer } from 'apollo-server-express'
 import cors from 'cors'
 import 'dotenv-safe/config'

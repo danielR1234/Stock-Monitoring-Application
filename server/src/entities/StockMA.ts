@@ -6,7 +6,7 @@ import { isRegularExpressionLiteral } from 'typescript'
 @ObjectType()
 export class StockMA {
   @Field(() => [Float], { nullable: true })
-  simpleMovingAverage: number[]
+  simpleMovingAverage: number[] | null
   @Field(() => [Float], { nullable: true })
-  exponentialMovingAverage: number[]
+  exponentialMovingAverage: number[] | null
 }

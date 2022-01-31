@@ -1,8 +1,10 @@
-import { ExponentialMovingAverage } from './../../technicalIndicators/movingAverages/exponentialMovingAverage'
 import { getStockPrices } from '../../utils'
 import { Arg, Int, Query, Resolver } from 'type-graphql'
 import { StockMA } from '../../entities'
-import { SimpleMovingAverage } from '../../technicalIndicators/movingAverages'
+import {
+  SimpleMovingAverage,
+  ExponentialMovingAverage,
+} from '../../technicalIndicators/movingAverages'
 
 @Resolver()
 export class StockMAResolver {
@@ -11,7 +13,9 @@ export class StockMAResolver {
     @Arg('symbol') symbol: string,
     @Arg('range') range: string,
     @Arg('chartInterval', () => Int) chartInterval: number,
-    @Arg('period', { defaultValue: 10 }) period: number
+    @Arg('period', { defaultValue: 10 }) period: number,
+    @Arg('chooseSMA', { defaultValue: true }) chooseSMA: boolean,
+    @Arg('chooseEMA', { defaultValue: true }) chooseEMA: boolean
   ): Promise<StockMA> {
     const closePrices = await getStockPrices(symbol, range, chartInterval)
     const SMA = new SimpleMovingAverage({ period: period, values: closePrices })
@@ -20,8 +24,10 @@ export class StockMAResolver {
       values: closePrices,
     })
     return {
-      simpleMovingAverage: SMA.generateSimpleMovingAverage(),
-      exponentialMovingAverage: EMA.generateExponentialAverage(),
+      simpleMovingAverage: chooseSMA ? SMA.generateSimpleMovingAverage() : null,
+      exponentialMovingAverage: chooseEMA
+        ? EMA.generateExponentialAverage()
+        : null,
     }
   }
 }

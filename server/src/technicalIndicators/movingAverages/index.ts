@@ -1,1 +1,2 @@
-export { SimpleMovingAverage } from './simpleMovingAverage'
+export { SimpleMovingAverage } from './SimpleMovingAverage'
+export { ExponentialMovingAverage } from './ExponentialMovingAverage'

@@ -1,5 +1,5 @@
 import { LinkedList } from '../utils/LinkedList'
-import { Indicator, IndicatorInput } from './../indicator/indicator'
+import { Indicator, IndicatorInput } from '../indicator/indicator'
 
 export class MovingAverageInput extends IndicatorInput {
   constructor(public period: number, public values: number[]) {
