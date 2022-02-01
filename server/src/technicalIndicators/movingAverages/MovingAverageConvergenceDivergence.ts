@@ -3,10 +3,9 @@ import { SimpleMovingAverage } from './SimpleMovingAverage'
 // Mac-Dee
 
 import { Indicator, IndicatorInput } from '../indicator/indicator'
+import { sign } from 'crypto'
 
 export class MACDInput extends IndicatorInput {
-  SimpleMAOscillator: boolean = true
-  SimpleMASignal: boolean = true
   fastPeriod: number
   slowPeriod: number
   signalPeriod: number
@@ -33,6 +32,7 @@ export class MACD extends Indicator {
     this.fastPeriod = input.fastPeriod
     this.slowPeriod = input.slowPeriod
     this.signalPeriod = input.signalPeriod
+    this.result = []
   }
 
   generateMACD = (): MACDOutput[] => {
@@ -41,41 +41,57 @@ export class MACD extends Indicator {
       values: this.prices,
     })
     let SlowEMA = new ExponentialMovingAverage({
-      period: this.fastPeriod,
+      period: this.slowPeriod,
       values: this.prices,
     })
+    let fast = FastEMA.generateExponentialAverage()
+    let slow = SlowEMA.generateExponentialAverage()
 
     let MACD: number[] = []
     let signal: number[] = []
     let histogramm: number[] = []
 
-    let fast = FastEMA.generateExponentialAverage()
-    let slow = SlowEMA.generateExponentialAverage()
-    if (fast && slow) {
-      fast.forEach((fast, index) => {
-        let macd = fast - slow[index]
+    if (this.slowPeriod > this.fastPeriod) {
+      let i = 0
+      while (i < slow.length) {
+        let macd = fast[i + this.slowPeriod - this.fastPeriod] - slow[i]
         MACD.push(macd)
-      })
+        i++
+      }
     }
+
     if (MACD.length > 0) {
       let SignalEMA = new ExponentialMovingAverage({
         period: this.signalPeriod,
         values: MACD,
       })
       signal = SignalEMA.generateExponentialAverage()
+
       if (signal) {
-        signal.forEach((signal, index) => {
-          histogramm.push(MACD[index] - signal)
-        })
+        let i = 0
+        let j = 0
+        while (i < MACD.length) {
+          if (i >= this.signalPeriod - 1) {
+            histogramm.push(MACD[i] - signal[j])
+            j++
+          }
+          i++
+        }
       }
     }
 
-    if (MACD.length < 0 && signal.length < 0 && histogramm.length < 0) {
+    if (MACD.length > 0 && signal.length > 0 && histogramm.length > 0) {
       MACD.forEach((macd, index) => {
         this.result.push({
           MACD: macd,
-          signal: signal[index],
-          histogram: histogramm[index],
+          signal:
+            index >= this.signalPeriod - 1
+              ? signal[index - this.signalPeriod + 1]
+              : undefined,
+          histogram:
+            index >= this.signalPeriod - 1
+              ? histogramm[index - this.signalPeriod + 1]
+              : undefined,
         })
       })
     }

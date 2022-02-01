@@ -14,6 +14,7 @@ export class ExponentialMovingAverage extends Indicator {
   }
   generateExponentialAverage = (): number[] => {
     // less pricess than period return []
+
     if (this.prices.length < this.period) {
       return []
     }
@@ -26,6 +27,7 @@ export class ExponentialMovingAverage extends Indicator {
     )
     // generates first SMA of given prices
     const sma = SMA.generateSimpleMovingAverage()
+
     let List = new LinkedList()
     // pushes the SMA as first head in to the Linked List
     List.pushLastNode(sma[0])
