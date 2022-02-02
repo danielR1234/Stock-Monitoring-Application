@@ -1,9 +1,8 @@
+// Mac-Dee
 import { ExponentialMovingAverage } from './ExponentialMovingAverage'
 import { SimpleMovingAverage } from './SimpleMovingAverage'
-// Mac-Dee
-
 import { Indicator, IndicatorInput } from '../indicator/indicator'
-import { sign } from 'crypto'
+import { MACDOutput } from '../../types/types'
 
 export class MACDInput extends IndicatorInput {
   fastPeriod: number
@@ -12,12 +11,6 @@ export class MACDInput extends IndicatorInput {
   constructor(public values: number[]) {
     super()
   }
-}
-
-export class MACDOutput {
-  MACD?: number
-  signal?: number
-  histogram?: number
 }
 
 export class MACD extends Indicator {
@@ -34,7 +27,6 @@ export class MACD extends Indicator {
     this.signalPeriod = input.signalPeriod
     this.result = []
   }
-
   generateMACD = (): MACDOutput[] => {
     let FastEMA = new ExponentialMovingAverage({
       period: this.fastPeriod,
@@ -46,6 +38,7 @@ export class MACD extends Indicator {
     })
     let fast = FastEMA.generateExponentialAverage()
     let slow = SlowEMA.generateExponentialAverage()
+    console.log('fast', fast, 'slow', slow)
 
     let MACD: number[] = []
     let signal: number[] = []
