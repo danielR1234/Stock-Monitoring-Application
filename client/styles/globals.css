@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* #region  /**=========== Primary Color =========== */
+  --tw-color-primary-50: 253 242 248;
+  --tw-color-primary-100: 252 231 243;
+  --tw-color-primary-200: 251 207 232;
+  --tw-color-primary-300: 249 168 212;
+  --tw-color-primary-400: 244 114 182;
+  --tw-color-primary-500: 236 72 153;
+  --tw-color-primary-600: 219 39 119;
+  --tw-color-primary-700: 190 24 93;
+  --tw-color-primary-800: 157 23 77;
+  --tw-color-primary-900: 131 24 67;
+  --color-primary-50: rgb(var(--tw-color-primary-50)); /* #fdf2f8 */
+  --color-primary-100: rgb(var(--tw-color-primary-100)); /* #fce7f3 */
+  --color-primary-200: rgb(var(--tw-color-primary-200)); /* #fbcfe8 */
+  --color-primary-300: rgb(var(--tw-color-primary-300)); /* #f9a8d4 */
+  --color-primary-400: rgb(var(--tw-color-primary-400)); /* #f472b6 */
+  --color-primary-500: rgb(var(--tw-color-primary-500)); /* #ec4899 */
+  --color-primary-600: rgb(var(--tw-color-primary-600)); /* #db2777 */
+  --color-primary-700: rgb(var(--tw-color-primary-700)); /* #be185d */
+  --color-primary-800: rgb(var(--tw-color-primary-800)); /* #9d174d */
+  --color-primary-900: rgb(var(--tw-color-primary-900)); /* #831843 */
+  /* #endregion  /**======== Primary Color =========== */
+}
+
+@layer base {
+  .h0 {
+    @apply font-primary md:text-5xl text-3xl font-bold;
+  }
+
+  h1,
+  .h1 {
+    @apply font-primary md:text-4xl text-2xl font-bold;
+  }
+
+  h2,
+  .h2 {
+    @apply font-primary md:text-3xl text-xl font-bold;
+  }
+
+  h3,
+  .h3 {
+    @apply font-primary md:text-2xl text-lg font-bold;
+  }
+
+  h4,
+  .h4 {
+    @apply font-primary md:text-lg text-base font-bold;
+  }
+
+  body,
+  .p {
+    @apply font-primary md:text-base text-sm;
+  }
+}
