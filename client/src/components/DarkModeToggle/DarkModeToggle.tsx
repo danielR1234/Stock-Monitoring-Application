@@ -24,7 +24,7 @@ export const DarkModeToggle: React.FC<Props> = ({ className = '' }) => {
     if (!mounted) return <div suppressHydrationWarning>Ignore this</div>
 
     return (
-      <div className='dark:text-default-black text-default-white flex flex-col items-center justify-center ml-2'>
+      <div className='dark:text-default-black text-default-white  flex flex-col items-center justify-center'>
         <div
           className={clsx(
             className,
@@ -42,7 +42,7 @@ export const DarkModeToggle: React.FC<Props> = ({ className = '' }) => {
   }
 
   return (
-    <div className=' dark:text-white text-text-black flex flex-col items-center justify-center ml-2'>
+    <div className=' dark:text-white text-text-black flex flex-col items-center justify-center'>
       <div
         className={clsx(
           className,
@@ -59,7 +59,6 @@ export const DarkModeToggle: React.FC<Props> = ({ className = '' }) => {
   )
 }
 export default DarkModeToggle
-
 DarkModeToggle.defaultProps = {
   className: undefined,
 }
