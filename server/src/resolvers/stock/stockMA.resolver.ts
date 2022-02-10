@@ -1,5 +1,5 @@
-import { getStockPrices } from '../../utils'
 import { Arg, Int, Query, Resolver } from 'type-graphql'
+import { getStockPrices } from '../../utils'
 import { StockMA } from '../../entities'
 import {
   SimpleMovingAverage,
@@ -19,17 +19,18 @@ export class StockMAResolver {
     @Arg('chooseEMA', { defaultValue: true }) chooseEMA: boolean,
     @Arg('chooseMACD', { defaultValue: true }) chooseMACD: boolean
   ): Promise<StockMA> {
-    const closePrices = await getStockPrices(symbol, range, chartInterval)
-    const sma = new SimpleMovingAverage({ period: period, values: closePrices })
+    const values = await getStockPrices(symbol, range, chartInterval)
+
+    const sma = new SimpleMovingAverage({ period, values })
     const ema = new ExponentialMovingAverage({
-      period: period,
-      values: closePrices,
+      period,
+      values,
     })
     const macd = new MACD({
       fastPeriod: 12,
       slowPeriod: 26,
       signalPeriod: 9,
-      values: closePrices,
+      values,
     })
 
     return {

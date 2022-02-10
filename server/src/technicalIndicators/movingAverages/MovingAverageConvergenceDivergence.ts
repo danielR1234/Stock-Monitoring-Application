@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 // Mac-Dee
 import { ExponentialMovingAverage } from './ExponentialMovingAverage'
 import { SimpleMovingAverage } from './SimpleMovingAverage'
@@ -28,33 +29,33 @@ export class MACD extends Indicator {
     this.result = []
   }
   generateMACD = (): MACDOutput[] => {
-    let FastEMA = new ExponentialMovingAverage({
+    const FastEMA = new ExponentialMovingAverage({
       period: this.fastPeriod,
       values: this.prices,
     })
-    let SlowEMA = new ExponentialMovingAverage({
+    const SlowEMA = new ExponentialMovingAverage({
       period: this.slowPeriod,
       values: this.prices,
     })
-    let fast = FastEMA.generateExponentialAverage()
-    let slow = SlowEMA.generateExponentialAverage()
-    console.log('fast', fast, 'slow', slow)
+    const fast = FastEMA.generateExponentialAverage()
+    const slow = SlowEMA.generateExponentialAverage()
 
-    let MACD: number[] = []
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const MACD: number[] = []
     let signal: number[] = []
-    let histogramm: number[] = []
+    const histogramm: number[] = []
 
     if (this.slowPeriod > this.fastPeriod) {
       let i = 0
       while (i < slow.length) {
-        let macd = fast[i + this.slowPeriod - this.fastPeriod] - slow[i]
+        const macd = fast[i + this.slowPeriod - this.fastPeriod] - slow[i]
         MACD.push(macd)
-        i++
+        i += 1
       }
     }
 
     if (MACD.length > 0) {
-      let SignalEMA = new ExponentialMovingAverage({
+      const SignalEMA = new ExponentialMovingAverage({
         period: this.signalPeriod,
         values: MACD,
       })
@@ -66,9 +67,9 @@ export class MACD extends Indicator {
         while (i < MACD.length) {
           if (i >= this.signalPeriod - 1) {
             histogramm.push(MACD[i] - signal[j])
-            j++
+            j += 1
           }
-          i++
+          i += 1
         }
       }
     }

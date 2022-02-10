@@ -1,5 +1,5 @@
-import axios from './axios'
 import { StockData } from '../entities'
+import { StockCoreDataParamsArgs } from '../types/args'
 import {
   BalanceSheet,
   CashFlow,
@@ -8,8 +8,7 @@ import {
   Financials,
   StockPrice,
 } from '../types/types'
-import { ArgsType, Field, Int } from 'type-graphql'
-import { StockCoreDataParamsArgs } from '../types/args'
+import axios from './axios'
 
 export const getBalanceSheet = async (
   symbol: string,
@@ -68,7 +67,7 @@ export const getStockPrices = async (
     `stock/${symbol}/chart/${range}?chartInterval=${chartInterval}&chartCloseOnly=true`
   )
 
-  return data.map((data) => data.close)
+  return data.map((stockData) => stockData.close)
 }
 
 export const getStockCoreData = async (
@@ -85,7 +84,7 @@ export const getStockCoreData = async (
     chooseFinancials,
   } = args
   const data = {
-    symbol: symbol,
+    symbol,
     balancesheet: chooseBalancesheet
       ? await getBalanceSheet(symbol, period, last)
       : null,

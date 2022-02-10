@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { LinkedList } from '../utils/LinkedList'
 import { Indicator, IndicatorInput } from '../indicator/indicator'
 
@@ -28,27 +29,27 @@ export class SimpleMovingAverage extends Indicator {
     if (this.prices.length < this.period) {
       return []
     }
-    let List = new LinkedList()
+    const List = new LinkedList()
     let sum = 0
     let current = 0
     let n = 0
     let average
-    let numberOfSMAsCaluclated = this.numberOfSMAsCaluclated + this.period - 1
+    const numberOfSMAsCaluclated = this.numberOfSMAsCaluclated + this.period - 1
     // The first head in the List must be 0
     List.pushLastNode(0)
-    //make calucaltion with all pricess
+    // make calucaltion with all pricess
     while (
       current < this.prices.length &&
       // if you just need the first SMA
       numberOfSMAsCaluclated > n
     ) {
       if (current < this.period - 1) {
-        sum = sum + this.prices[current]
+        sum += this.prices[current]
 
         // push next header in the List
         List.pushLastNode(this.prices[current])
-        current++
-        n++
+        current += 1
+        n += 1
       } else {
         // remove first Header in the list (first header is 0)
         // which at the same time is the value which is no longer needed to calculate the total
@@ -57,8 +58,8 @@ export class SimpleMovingAverage extends Indicator {
         List.pushLastNode(this.prices[current])
         average = sum / this.period
         this.result.push(average)
-        current++
-        n++
+        current += 1
+        n += 1
       }
     }
     return this.result

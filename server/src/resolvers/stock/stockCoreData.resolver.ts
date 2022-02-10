@@ -1,7 +1,7 @@
 import { Args, Query, Resolver } from 'type-graphql'
 import { StockData } from '../../entities'
+import { getStockCoreData } from '../../utils/getStockCoreData'
 import { StockCoreDataParamsArgs } from '../../types/args'
-import { getStockCoreData } from './../../utils/getStockCoreData'
 
 @Resolver()
 export class StockCoreDataResolver {
@@ -19,7 +19,7 @@ export class StockCoreDataResolver {
       chooseFinancials,
     }: StockCoreDataParamsArgs
   ): Promise<StockData> {
-    return await getStockCoreData({
+    return getStockCoreData({
       period,
       last,
       symbol,

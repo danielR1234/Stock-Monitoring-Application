@@ -18,4 +18,6 @@ export class StockCoreDataParamsArgs {
   chooseDividends = true
   @Field(() => Boolean)
   chooseFinancials = true
+  @Field(() => Boolean)
+  chooseSearch? = true
 }

@@ -1,6 +1,6 @@
-import { Dividends } from './../types/types/Dividends'
 import { Field, ObjectType } from 'type-graphql'
 import { BalanceSheet, CashFlow, Company, Financials } from '../types/types'
+import { Dividends } from '../types/types/Dividends'
 
 @ObjectType()
 export class StockData {
